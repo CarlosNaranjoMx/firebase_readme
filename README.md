@@ -6,11 +6,12 @@ Este repositorio contiene una introducción básica a Firebase y los comandos es
 1. [Comandos básicos de Firebase CLI](#comandos-básicos-de-firebase-cli)
 2. [Comandos de validación y consulta](#comandos-de-validación-y-consulta)
 3. [Comandos para ver y crear schemas en Firestore](#comandos-para-ver-y-crear-schemas-en-firestore)
-4. [¿Qué es Firebase?](#qué-es-firebase)
-5. [Conexión con FlutterFlow](#conexión-con-flutterflow)
-6. [Sugerencia de reglas para Firestore](#sugerencia-de-reglas-para-firestore)
-7. [Interactuar con la base de datos desde Firebase CLI](#interactuar-con-la-base-de-datos-desde-firebase-cli)
-8. [Recursos](#recursos)
+4. [Modificar el contenido de un esquema (documento) desde Firebase CLI](#modificar-el-contenido-de-un-esquema-documento-desde-firebase-cli)
+5. [¿Qué es Firebase?](#qué-es-firebase)
+6. [Conexión con FlutterFlow](#conexión-con-flutterflow)
+7. [Sugerencia de reglas para Firestore](#sugerencia-de-reglas-para-firestore)
+8. [Interactuar con la base de datos desde Firebase CLI](#interactuar-con-la-base-de-datos-desde-firebase-cli)
+9. [Recursos](#recursos)
 
 ## Comandos básicos de Firebase CLI
 Para trabajar con Firebase desde la terminal, necesitas instalar el [Firebase CLI](https://firebase.google.com/docs/cli):
@@ -112,6 +113,34 @@ firebase firestore:documents create /<coleccion>/<documentoID> --data '{"campo1"
 Esto crea un documento con los campos especificados, generando la estructura (schema) en Firestore.
 
 > **Nota:** Firestore es una base de datos NoSQL y no requiere definir schemas de antemano. El schema se genera dinámicamente al crear documentos y campos.
+
+## Modificar el contenido de un esquema (documento) desde Firebase CLI
+
+En Firestore, los “esquemas” se generan dinámicamente al crear o modificar documentos y colecciones. Si tu app fue creada en FlutterFlow y ya tienes colecciones/documentos, puedes modificar su contenido desde la Firebase CLI usando los siguientes comandos:
+
+### Actualizar campos de un documento existente
+```sh
+firebase firestore:documents update /<coleccion>/<documentoID> --data '{"campo1": "nuevo valor", "campo2": 123}'
+```
+Esto agrega o modifica los campos especificados en el documento.
+
+### Agregar un nuevo campo a un documento
+```sh
+firebase firestore:documents update /<coleccion>/<documentoID> --data '{"nuevoCampo": "valor"}'
+```
+
+### Eliminar un campo de un documento
+```sh
+firebase firestore:documents update /<coleccion>/<documentoID> --deleteFields campoAEliminar
+```
+
+### Crear un documento con un nuevo “esquema”
+```sh
+firebase firestore:documents create /<coleccion>/<nuevoDocumentoID> --data '{"campoA": "valor", "campoB": 42}'
+```
+Esto crea un documento con los campos especificados, generando la estructura (schema) en Firestore.
+
+> **Nota:** No puedes modificar la estructura de la colección como tal, solo los documentos y sus campos. Firestore es flexible y no requiere definir el esquema antes de tiempo.
 
 ## ¿Qué es Firebase?
 Firebase es una plataforma de desarrollo de aplicaciones de Google que proporciona servicios backend listos para usar, como base de datos en tiempo real, autenticación, almacenamiento, hosting, funciones en la nube y más. Es muy utilizada para aplicaciones web y móviles.
