@@ -2,6 +2,89 @@
 
 Este repositorio contiene una introducción básica a Firebase y los comandos esenciales para comenzar a trabajar con esta plataforma.
 
+## Índice
+1. [Comandos básicos de Firebase CLI](#comandos-básicos-de-firebase-cli)
+2. [Comandos de validación y consulta](#comandos-de-validación-y-consulta)
+3. [¿Qué es Firebase?](#qué-es-firebase)
+4. [Conexión con FlutterFlow](#conexión-con-flutterflow)
+5. [Sugerencia de reglas para Firestore](#sugerencia-de-reglas-para-firestore)
+6. [Interactuar con la base de datos desde Firebase CLI](#interactuar-con-la-base-de-datos-desde-firebase-cli)
+7. [Recursos](#recursos)
+
+## Comandos básicos de Firebase CLI
+Para trabajar con Firebase desde la terminal, necesitas instalar el [Firebase CLI](https://firebase.google.com/docs/cli):
+
+```sh
+npm install -g firebase-tools
+```
+
+### Inicializar un proyecto
+```sh
+firebase init
+```
+Permite configurar los servicios de Firebase que usarás (Firestore, Functions, Hosting, etc.)
+
+### Autenticarse en Firebase
+```sh
+firebase login
+```
+Inicia sesión con tu cuenta de Google.
+
+### Desplegar servicios
+```sh
+firebase deploy
+```
+Sube tu configuración, funciones, reglas y hosting a Firebase.
+
+### Emuladores locales
+```sh
+firebase emulators:start
+```
+Inicia los emuladores locales de los servicios configurados.
+
+### Ver estado del proyecto
+```sh
+firebase projects:list
+```
+Muestra los proyectos de Firebase asociados a tu cuenta.
+
+### Otras operaciones útiles
+- `firebase logout` — Cierra la sesión actual.
+- `firebase use --add` — Cambia o agrega un proyecto activo en tu carpeta local.
+- `firebase functions:log` — Muestra los logs de Cloud Functions.
+
+## Comandos de validación y consulta
+
+- **Ver el correo conectado actualmente:**
+  ```sh
+  firebase login:list
+  ```
+  Muestra el correo electrónico actualmente autenticado en Firebase CLI.
+
+- **Ver proyectos de Firebase asociados:**
+  ```sh
+  firebase projects:list
+  ```
+  Lista los proyectos de Firebase disponibles para tu cuenta.
+
+- **Ver el proyecto activo en la carpeta actual:**
+  ```sh
+  firebase use
+  ```
+  Muestra el proyecto de Firebase actualmente seleccionado en tu carpeta local.
+
+- **Ver configuración de la CLI:**
+  ```sh
+  firebase --help
+  ```
+  Muestra la ayuda y todos los comandos disponibles en Firebase CLI.
+
+- **Ver detalles de configuración local:**
+  ```sh
+  cat .firebaserc
+  ```
+  Muestra el archivo de configuración local del proyecto (si existe).
+
 ## ¿Qué es Firebase?
 Firebase es una plataforma de desarrollo de aplicaciones de Google que proporciona servicios backend listos para usar, como base de datos en tiempo real, autenticación, almacenamiento, hosting, funciones en la nube y más. Es muy utilizada para aplicaciones web y móviles.
 
@@ -66,48 +149,6 @@ Puedes usar el CLI para importar, exportar y consultar datos:
   ```
 
 Consulta la [documentación oficial](https://firebase.google.com/docs/firestore/manage-data/export-import) para más detalles.
-
-## Comandos básicos de Firebase CLI
-Para trabajar con Firebase desde la terminal, necesitas instalar el [Firebase CLI](https://firebase.google.com/docs/cli):
-
-```sh
-npm install -g firebase-tools
-```
-
-### Inicializar un proyecto
-```sh
-firebase init
-```
-Permite configurar los servicios de Firebase que usarás (Firestore, Functions, Hosting, etc.)
-
-### Autenticarse en Firebase
-```sh
-firebase login
-```
-Inicia sesión con tu cuenta de Google.
-
-### Desplegar servicios
-```sh
-firebase deploy
-```
-Sube tu configuración, funciones, reglas y hosting a Firebase.
-
-### Emuladores locales
-```sh
-firebase emulators:start
-```
-Inicia los emuladores locales de los servicios configurados.
-
-### Ver estado del proyecto
-```sh
-firebase projects:list
-```
-Muestra los proyectos de Firebase asociados a tu cuenta.
-
-### Otras operaciones útiles
-- `firebase logout` — Cierra la sesión actual.
-- `firebase use --add` — Cambia o agrega un proyecto activo en tu carpeta local.
-- `firebase functions:log` — Muestra los logs de Cloud Functions.
 
 ## Recursos
 - [Documentación oficial de Firebase](https://firebase.google.com/docs)
