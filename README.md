@@ -5,11 +5,12 @@ Este repositorio contiene una introducción básica a Firebase y los comandos es
 ## Índice
 1. [Comandos básicos de Firebase CLI](#comandos-básicos-de-firebase-cli)
 2. [Comandos de validación y consulta](#comandos-de-validación-y-consulta)
-3. [¿Qué es Firebase?](#qué-es-firebase)
-4. [Conexión con FlutterFlow](#conexión-con-flutterflow)
-5. [Sugerencia de reglas para Firestore](#sugerencia-de-reglas-para-firestore)
-6. [Interactuar con la base de datos desde Firebase CLI](#interactuar-con-la-base-de-datos-desde-firebase-cli)
-7. [Recursos](#recursos)
+3. [Comandos para ver y crear schemas en Firestore](#comandos-para-ver-y-crear-schemas-en-firestore)
+4. [¿Qué es Firebase?](#qué-es-firebase)
+5. [Conexión con FlutterFlow](#conexión-con-flutterflow)
+6. [Sugerencia de reglas para Firestore](#sugerencia-de-reglas-para-firestore)
+7. [Interactuar con la base de datos desde Firebase CLI](#interactuar-con-la-base-de-datos-desde-firebase-cli)
+8. [Recursos](#recursos)
 
 ## Comandos básicos de Firebase CLI
 Para trabajar con Firebase desde la terminal, necesitas instalar el [Firebase CLI](https://firebase.google.com/docs/cli):
@@ -84,6 +85,33 @@ Muestra los proyectos de Firebase asociados a tu cuenta.
   cat .firebaserc
   ```
   Muestra el archivo de configuración local del proyecto (si existe).
+
+## Comandos para ver y crear schemas en Firestore
+
+Actualmente, el Firebase CLI no permite crear schemas (estructuras de colecciones y campos) de forma declarativa o mediante comandos directos. Sin embargo, puedes ver la estructura de tus datos y exportar/importar datos, lo que puede ayudarte a documentar o replicar schemas.
+
+### Ver la estructura de colecciones y documentos
+
+Puedes listar documentos de una colección:
+```sh
+firebase firestore:documents list /<coleccion>
+```
+Esto muestra los documentos y sus campos, permitiendo inspeccionar la estructura actual.
+
+### Exportar la estructura y datos
+```sh
+firebase firestore:export ./backup
+```
+Esto exporta todos los datos y, al importar en otro proyecto, replica la estructura (schemas) existente.
+
+### Crear datos (y por lo tanto schemas) desde CLI
+No existe un comando específico para crear schemas, pero puedes crear documentos y colecciones usando:
+```sh
+firebase firestore:documents create /<coleccion>/<documentoID> --data '{"campo1": "valor", "campo2": 123}'
+```
+Esto crea un documento con los campos especificados, generando la estructura (schema) en Firestore.
+
+> **Nota:** Firestore es una base de datos NoSQL y no requiere definir schemas de antemano. El schema se genera dinámicamente al crear documentos y campos.
 
 ## ¿Qué es Firebase?
 Firebase es una plataforma de desarrollo de aplicaciones de Google que proporciona servicios backend listos para usar, como base de datos en tiempo real, autenticación, almacenamiento, hosting, funciones en la nube y más. Es muy utilizada para aplicaciones web y móviles.
