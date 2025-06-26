@@ -207,9 +207,39 @@ Puedes usar el CLI para importar, exportar y consultar datos:
 
 Consulta la [documentación oficial](https://firebase.google.com/docs/firestore/manage-data/export-import) para más detalles.
 
-## Recursos
-- [Documentación oficial de Firebase](https://firebase.google.com/docs)
-- [Referencia de comandos CLI](https://firebase.google.com/docs/cli#commands)
+## Ejemplo y explicación de reglas de Firebase Storage
+
+```js
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+    match /users/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth.uid == userId;
+    }
+  }
+}
+```
+
+**¿Qué significan estas reglas?**
+
+- `rules_version = '2';`: Indica la versión de las reglas de seguridad de Firebase Storage.
+- `service firebase.storage { ... }`: Define las reglas para el servicio de almacenamiento.
+- `match /b/{bucket}/o { ... }`: Aplica las reglas a todos los buckets y objetos del storage.
+- `match /{allPaths=**} { allow read, write: if false; }`: Por defecto, nadie puede leer ni escribir en ningún archivo.
+- `match /users/{userId}/{allPaths=**} { ... }`: Excepción para la carpeta `users`:
+  - `allow read: if true;`: Cualquier usuario puede leer archivos en cualquier subcarpeta de `users`.
+  - `allow write: if request.auth.uid == userId;`: Solo el usuario autenticado cuyo UID coincide con `userId` puede escribir (subir/modificar) archivos en su propia carpeta.
+
+**Resumen:**
+- Nadie puede acceder a ningún archivo salvo a los que están bajo `/users/{userId}/`.
+- Todos pueden leer archivos en `/users/{userId}/`.
+- Solo el usuario autenticado puede escribir en su propia carpeta.
+
+> Ajusta estas reglas según la privacidad y seguridad que requiera tu aplicación.
 
 ---
 
